@@ -101,6 +101,12 @@ sl.y = NaN(1,length(transects.y));
 warning off
 for i = 1:length(transects.x)
     angle = atan(diff(transects.y(:,i))/diff(transects.x(:,i)));
+    %if negative angle (e.g. Western Australia), calculate complement
+    if angle<0
+        angle = atand(diff(dum.trans.SLtransects.y(:,i))/diff(dum.trans.SLtransects.x(:,i)));
+        angle = (90-abs(angle))+90; 
+        angle = deg2rad(angle);
+    end
     points_rot = rotatePoints(points,angle,[transects.x(1,i) transects.y(1,i)],'rads');
     max_distance = sqrt(diff(transects.y(:,i))^2+ diff(transects.x(:,i))^2);
     I = find(points_rot(:,2)>-1&points_rot(:,2)<1&points_rot(:,1)>0&points_rot(:,1)<max_distance); %Only find points greater than zero so that they are in the roi
