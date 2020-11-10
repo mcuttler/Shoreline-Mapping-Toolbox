@@ -103,7 +103,7 @@ for i = 1:length(transects.x)
     angle = atan(diff(transects.y(:,i))/diff(transects.x(:,i)));
     %if negative angle (e.g. Western Australia), calculate complement
     if angle<0
-        angle = atand(diff(dum.trans.SLtransects.y(:,i))/diff(dum.trans.SLtransects.x(:,i)));
+        angle = atand(diff(transects.y(:,i))/diff(transects.x(:,i)));
         angle = (90-abs(angle))+90; 
         angle = deg2rad(angle);
     end
